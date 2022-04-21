@@ -3,7 +3,7 @@ version: '3.1'
 services:
   mongodb:
     image: mongo
-    container_name: mongodb
+    container_name: mongodb-todolist
     ports:
       - 27017:27017
     environment:

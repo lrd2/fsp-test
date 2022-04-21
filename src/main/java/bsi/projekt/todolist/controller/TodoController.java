@@ -20,8 +20,8 @@ public class TodoController {
     }
 
     @GetMapping
-    public List<TodoItem> getAllToDos(@RequestParam String id) {
-        return service.getAllToDos(id);
+    public List<TodoItem> getAllToDos() {
+        return service.getAllToDos();
     }
 
     @DeleteMapping

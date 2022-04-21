@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface TodoItemRepository extends MongoRepository<TodoItem, String> {
 
-    List<TodoItem> findAllByAuthorId(String authorId);
+    List<TodoItem> findAllById(String id);
 }
