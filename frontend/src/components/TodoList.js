@@ -5,17 +5,17 @@ import axios from "axios";
 
 const baseUrl = "http://localhost:8080"
 
-function TodoList() {
+const TodoList = () => {
     const [todos, setTodos] = useState([])
 
-    useEffect( () => {
+    useEffect(() => {
         axios.get(`${baseUrl}/todo`)
             .then(response => setTodos(response.data))
     }, [])
 
     function getTodos() {
-            axios.get(`${baseUrl}/todo`)
-                .then(response => setTodos(response.data))
+        axios.get(`${baseUrl}/todo`)
+            .then(response => setTodos(response.data))
     }
 
     const addTodo = todo => {
@@ -27,11 +27,41 @@ function TodoList() {
         }).then(() => getTodos())
     }
 
+    const removeTodo = (id) => {
+        axios.delete(`${baseUrl}/todo`, {
+            params: {
+                id: id
+            }
+        })
+            .then(() => getTodos())
+    }
+
+    const editTodo = (todoItem, inputText) => {
+        axios.put(`${baseUrl}/todo`, {
+            id: todoItem.id,
+            text: inputText,
+            completed: todoItem.completed
+        }).then(() => getTodos())
+    }
+
+    const updateTodo = (todoItem) => {
+        todoItem.completed = !todoItem.completed
+        axios.put(`${baseUrl}/todo`, {
+            id: todoItem.id,
+            text: todoItem.text,
+            completed: todoItem.completed
+
+        }).then(() => getTodos())
+    }
+
     return (
         <div className='todo-list'>
             <TodoForm onSubmit={addTodo}/>
             <Todo
                 todos={todos}
+                removeTodo={removeTodo}
+                updateTodo={updateTodo}
+                editTodo={editTodo}
             />
         </div>
     )

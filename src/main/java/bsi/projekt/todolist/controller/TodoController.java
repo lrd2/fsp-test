@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/todo")
+@CrossOrigin("*")
 @AllArgsConstructor
 public class TodoController {
 
@@ -30,7 +31,7 @@ public class TodoController {
     }
 
     @PutMapping
-    public void updateToDoItem(@RequestParam String id, @RequestBody TodoItem item) {
-        service.updateToDoItem(id, item);
+    public void updateToDoItem(@RequestBody TodoItem item) {
+        service.updateToDoItem(item);
     }
 }

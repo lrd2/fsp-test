@@ -4,7 +4,7 @@ import TodoList from "./components/TodoList";
 function App() {
     return (
         <div className="todo-app">
-            <h1>What do you have to do today?</h1>
+            <span className={'todo-tittle'}>Co masz dziś do zrobienia✍️</span>
             <TodoList/>
         </div>
     );

@@ -30,10 +30,11 @@ public class TodoItemService {
         repository.deleteById(id);
     }
 
-    public void updateToDoItem(String id, TodoItem item) {
-        TodoItem toDoItem = repository.findById(id)
+    public void updateToDoItem(TodoItem item) {
+        TodoItem toDoItem = repository.findById(item.getId())
                 .orElseThrow(IllegalArgumentException::new);
         toDoItem.setText(item.getText());
         toDoItem.setCompleted(item.isCompleted());
+        repository.save(toDoItem);
     }
 }

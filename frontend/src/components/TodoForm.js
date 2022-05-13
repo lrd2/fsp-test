@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAdd} from '@fortawesome/free-solid-svg-icons'
+import {Button, Form, Input, InputGroup} from 'reactstrap'
 
-function TodoForm(props) {
+const TodoForm = (props) => {
     const [inputValue, setInputValue] = useState('');
 
     const handleSubmit = e => {
@@ -14,18 +15,20 @@ function TodoForm(props) {
     }
 
     return (
-        <form className='todo-form' onSubmit={handleSubmit}>
-            <input
-                type='text'
-                placeholder='Add a todo'
-                value={inputValue}
-                className='todo-input'
-                onChange={e => setInputValue(e.target.value)}
-            />
-            <button type={"submit"}>
-                <FontAwesomeIcon icon={faAdd}/>
-            </button>
-        </form>
+        <Form className='todo-form' onSubmit={handleSubmit}>
+            <InputGroup>
+                <Input
+                    type='text'
+                    placeholder='Add a todo'
+                    value={inputValue}
+                    className='todo-input'
+                    onChange={e => setInputValue(e.target.value)}
+                />
+                <Button type={"submit"}>
+                    <FontAwesomeIcon icon={faAdd}/>
+                </Button>
+            </InputGroup>
+        </Form>
     )
 }
 
