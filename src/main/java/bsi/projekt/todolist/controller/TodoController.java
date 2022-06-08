@@ -1,6 +1,8 @@
 package bsi.projekt.todolist.controller;
 
 import bsi.projekt.todolist.model.TodoItem;
+import bsi.projekt.todolist.model.TodoItemPostgres;
+import bsi.projekt.todolist.service.OracleTodoService;
 import bsi.projekt.todolist.service.TodoItemService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import pl.execon.fsp.core.FspRequest;
+import pl.execon.fsp.core.FspResponse;
 
 @RestController
 @RequestMapping("/todo")
@@ -23,14 +25,25 @@ public class TodoController {
 
     private final TodoItemService service;
 
-    @PostMapping
+    private final OracleTodoService todoService;
+
+    @PostMapping()
     public TodoItem createToDo(@RequestBody TodoItem toDoItem) {
         return service.createToDo(toDoItem);
     }
 
+    @PostMapping("/fsp")
+    public FspResponse<TodoItem> findFsp(@RequestBody FspRequest fspRequest) {
+        return service.findFsp(fspRequest);
+    }
+
     @GetMapping
-    public List<TodoItem> getAllToDos() {
-        return service.getAllToDos();
+    public FspResponse<TodoItemPostgres> getAllToDos() {
+        return todoService.get();
+    }
+    @PostMapping("/oracle")
+    public FspResponse<TodoItemPostgres> getAllToDosOracle(@RequestBody FspRequest fspRequest) {
+        return todoService.getOracle(fspRequest);
     }
 
     @DeleteMapping

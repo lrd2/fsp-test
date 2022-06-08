@@ -1,11 +1,13 @@
 package bsi.projekt.todolist.service;
 
-import bsi.projekt.todolist.model.CustomQuery;
+import bsi.projekt.todolist.model.TodoItem;
+import bsi.projekt.todolist.repository.TodoItemRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.execon.fsp.core.FspRequest;
+import pl.execon.fsp.core.FspResponse;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 @AllArgsConstructor
@@ -21,8 +23,13 @@ public class TodoItemService {
         return repository.save(savableToDo);
     }
 
-    public List<bsi.projekt.todolist.model.TodoItem> getAllToDos() {
-        return repository.query(new CustomQuery("abc"));
+    public FspResponse<TodoItem> getAllToDos() {
+        FspResponse<TodoItem> fsp = repository.findFsp(new FspRequest(), TodoItem.class);
+        return fsp;
+    }
+
+    public FspResponse<TodoItem> findFsp(FspRequest request) {
+        return repository.findFsp(request, TodoItem.class);
     }
 
     public void removeToDoItem(String id) {

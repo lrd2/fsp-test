@@ -9,3 +9,19 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=todolist
       - MONGO_INITDB_ROOT_PASSWORD=todolist
+  postgres:
+    image: postgres
+    container_name: postgres-todolist
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=pass
+  oracle-db:
+    image: banglamon/oracle193db:19.3.0-ee
+    ports:
+      - 40126:1521
+    environment:
+      ORACLE_SID: todo
+      ORACLE_PDB: tododb
+      ORACLE_PWD: todo
